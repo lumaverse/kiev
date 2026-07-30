@@ -6,7 +6,7 @@ module Kiev
   module Rack
     class RequestLogger
       ERROR_STATUS = 500
-      ERROR_HEADERS = [].freeze
+      ERROR_HEADERS = {}.freeze
       ERROR_BODY = [""].freeze
       LOG_ERROR = "ERROR"
 

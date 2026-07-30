@@ -32,6 +32,17 @@ if defined?(Rack)
       }.merge(options)]
     end
 
+    context "when the application raises" do
+      it "re-raises the original application exception" do
+        application_exception = RuntimeError.new("application failed")
+        raising_app = ->(_env) { raise application_exception }
+        env = Rack::MockRequest.env_for("/missing")
+
+        expect { described_class.new(raising_app).call(env) }
+          .to raise_error { |raised_exception| expect(raised_exception).to equal(application_exception) }
+      end
+    end
+
     context "200 response" do
       it "logs request" do
         expect(subject).to have_received(:event).with(*request_finished)
