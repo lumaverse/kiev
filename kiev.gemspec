@@ -23,7 +23,9 @@ Gem::Specification.new do |spec|
   spec.add_dependency "oga", "~> 3.4"
   spec.add_dependency "rack", ">= 2.2", "< 4"
   spec.add_dependency "request_store", ">= 1.4"
-  spec.add_development_dependency "rake", "~> 12.2"
+  spec.add_development_dependency "ostruct"
+  spec.add_development_dependency "rake", "~> 13.0"
+  spec.add_development_dependency "rexml"
   spec.add_development_dependency "rspec", "~> 3.12"
   spec.add_development_dependency "rubocop", "~> 1.56"
 end
