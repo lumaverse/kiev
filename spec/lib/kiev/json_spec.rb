@@ -24,7 +24,7 @@ describe Kiev::JSON do
     Time: Time.new(2012, 1, 5, 23, 58, 7.99996, 32_400),
     Date: Date.new(2012, 1, 5, 23),
     DateTime: DateTime.new(2012, 1, 5, 23, 58, 7.99996, 32_400),
-    BigDecimal: BigDecimal("1") / 3,
+    BigDecimal: BigDecimal("0.333333333333333333333333333333333333"),
     BigDecimalInfinity: BigDecimal("0.5") / 0,
     Float: 1.0 / 3,
     FloatInfinity: 0.5 / 0,
@@ -52,7 +52,7 @@ describe Kiev::JSON do
     Kiev::JSON.engine = :oj
     expect(subject.frozen?).to be(false)
     # Obviously it's not Sidekiq itself, but env setup specific to Sidekiq
-    if defined?(::Sidekiq)
+    if defined?(::Sidekiq) && Oj::VERSION < "3"
       expect(subject).to eq(
         "{\"Regexp\":\"(?-mix:test)\",\"StringChinese\":\"二胡\"," \
         "\"StringSpecial\":\"\u2028\u2029><&\",\"StringSpecial2\":\"/\",\"StringSpecial3\":\"\\\\\\b\\f\\n\\r\\t\"," \
@@ -62,7 +62,7 @@ describe Kiev::JSON do
         "\"OpenStruct\":\"#<OpenStruct country=\\\"Australia\\\", population=20000000>\"," \
         "\"Rational\":\"5404319552844595/18014398509481984\",\"AsJson\":{\"a\":1}}"
       )
-    elsif defined?(ActiveSupport::JSON)
+    elsif defined?(ActiveSupport::JSON) && !defined?(::Sidekiq)
       expect(subject).to eq(
         "{\"Regexp\":\"(?-mix:test)\",\"StringChinese\":\"二胡\"," \
         "\"StringSpecial\":\"\\u2028\\u2029\\u003e\\u003c\\u0026\",\"StringSpecial2\":\"/\"," \

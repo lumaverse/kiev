@@ -9,9 +9,9 @@ name: Main CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, kiev-next ]
   pull_request:
-    branches: [ master ]
+    branches: [ master, kiev-next ]
 
 jobs:
   test:
@@ -19,10 +19,10 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        ruby: ['3.2.2']
+        ruby: ['4.0.10']
         gemfile:
           - gemfiles/ruby_kafka.gemfile
-          - gemfiles/rails_7.0.gemfile
+          - gemfiles/rails_7.1.gemfile
           - gemfiles/shoryuken_6.0.gemfile
           - gemfiles/sidekiq_5.0.gemfile
           - gemfiles/sinatra_2.2.gemfile
@@ -30,8 +30,8 @@ jobs:
           - false
         include:
           - os: ubuntu
-            ruby-version: ruby-head
-            gemfile: gemfiles/rails_7.0.gemfile
+            ruby: ruby-head
+            gemfile: gemfiles/rails_7.1.gemfile
             allow_failures: true
     env:
       BUNDLE_GEMFILE: "${{ matrix.gemfile }}"

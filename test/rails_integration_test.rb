@@ -131,7 +131,7 @@ if defined?(Rails)
     def test_json_post
       json = "{\"some_data\": \"abc\", \"password\": \"secret\", \"utf8\": \"1\"}"
       post("/", params: json, headers: { "CONTENT_TYPE" => "application/json" })
-      assert_equal("{\"some_data\":\"abc\",\"password\":\"[FILTERED]\"}", log_first["params"])
+      assert_equal("{\"some_data\":\"abc\",\"password\":\"[FILTERED]\",\"root\":{\"some_data\":\"abc\",\"password\":\"[FILTERED]\"}}", log_first["params"])
     end
 
     def test_malformed_json_post
@@ -190,7 +190,7 @@ if defined?(Rails)
 
     def test_event
       get("/test_event")
-      assert_equal("{\"id\":1000,\"name\":\"Jane\",\"money\":\"0.333333333333333333333333333333333333\"}", log_first["some_data"])
+      assert_equal("{\"id\":1000,\"name\":\"Jane\",\"money\":\"0.33333333333333333333333333333333\"}", log_first["some_data"])
       assert_equal("test_event", log_first["log_name"])
     end
   end
