@@ -24,7 +24,7 @@ describe Kiev::JSON do
     Time: Time.new(2012, 1, 5, 23, 58, 7.99996, 32_400),
     Date: Date.new(2012, 1, 5, 23),
     DateTime: DateTime.new(2012, 1, 5, 23, 58, 7.99996, 32_400),
-    BigDecimal: BigDecimal("1") / 3,
+    BigDecimal: BigDecimal("0.333333333333333333333333333333333333"),
     BigDecimalInfinity: BigDecimal("0.5") / 0,
     Float: 1.0 / 3,
     FloatInfinity: 0.5 / 0,
