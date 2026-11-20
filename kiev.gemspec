@@ -20,10 +20,13 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.required_ruby_version = ">= 3.2"
+  spec.add_dependency "logger"
   spec.add_dependency "oga", "~> 3.4"
   spec.add_dependency "rack", ">= 2.2", "< 4"
   spec.add_dependency "request_store", ">= 1.4"
+  spec.add_development_dependency "bigdecimal"
   spec.add_development_dependency "json", "< 3"
+  spec.add_development_dependency "minitest", "< 6"
   spec.add_development_dependency "ostruct"
   spec.add_development_dependency "rake", "~> 13.0"
   spec.add_development_dependency "rexml"

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative "helper"
+require "minitest/mock"
 
 if defined?(Sidekiq)
   class SidekiqTest < Minitest::Spec
@@ -79,10 +80,8 @@ if defined?(Sidekiq)
       refute_nil(log_first["request_duration"])
       assert_equal(0, log_first["request_depth"])
       assert_equal("NoMethodError", log_first["error_class"])
-      assert_equal(
-        "undefined method `undefined_method' for SidekiqTest::CustomWorker:Class",
-        log_first["error_message"].lines.first.chomp
-      )
+      assert_match(/undefined method .*undefined_method.*SidekiqTest::CustomWorker/,
+                   log_first["error_message"].lines.first)
       refute_nil(log_first["error_backtrace"])
       assert_nil(Kiev::RequestStore.store[:request_id])
     end
